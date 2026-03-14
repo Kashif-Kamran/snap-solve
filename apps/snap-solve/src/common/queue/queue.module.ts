@@ -1,8 +1,8 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { BullModule } from '@nestjs/bullmq';
 import { PROBLEMS_QUEUE } from '@app/shared';
-import { ProblemProcessor } from './problem.processor';
 
+@Global()
 @Module({
   imports: [
     BullModule.forRoot({
@@ -15,6 +15,6 @@ import { ProblemProcessor } from './problem.processor';
       name: PROBLEMS_QUEUE,
     }),
   ],
-  providers: [ProblemProcessor],
+  exports: [BullModule],
 })
-export class WorkerModule {}
+export class QueueModule {}

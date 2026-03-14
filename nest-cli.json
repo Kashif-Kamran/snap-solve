@@ -10,6 +10,15 @@
   "monorepo": true,
   "root": "apps/snap-solve",
   "projects": {
+    "shared": {
+      "type": "library",
+      "root": "libs/shared",
+      "entryFile": "index",
+      "sourceRoot": "libs/shared/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/shared/tsconfig.lib.json"
+      }
+    },
     "snap-solve": {
       "type": "application",
       "root": "apps/snap-solve",
