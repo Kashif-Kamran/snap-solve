@@ -1,5 +1,5 @@
 import { Controller, HttpStatus, Post } from '@nestjs/common';
-import { responseHandler } from '../common';
+import { responseHandler } from '../../common';
 import { NotificationService } from './notification.service';
 
 @Controller('notifications')

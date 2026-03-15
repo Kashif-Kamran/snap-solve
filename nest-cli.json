@@ -10,6 +10,15 @@
   "monorepo": true,
   "root": "apps/snap-solve",
   "projects": {
+    "problem-runner": {
+      "type": "application",
+      "root": "apps/problem-runner",
+      "entryFile": "main",
+      "sourceRoot": "apps/problem-runner/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/problem-runner/tsconfig.app.json"
+      }
+    },
     "shared": {
       "type": "library",
       "root": "libs/shared",
