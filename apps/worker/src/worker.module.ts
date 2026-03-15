@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
 import { BullModule } from '@nestjs/bullmq';
-import { PROBLEMS_QUEUE } from '@app/shared';
+import { PROBLEMS_QUEUE, NOTIFICATIONS_QUEUE } from '@app/shared';
 import { ProblemProcessor } from './problem.processor';
+import { NotificationProcessor } from './notification.processor';
 
 @Module({
   imports: [
@@ -14,7 +15,10 @@ import { ProblemProcessor } from './problem.processor';
     BullModule.registerQueue({
       name: PROBLEMS_QUEUE,
     }),
+    BullModule.registerQueue({
+      name: NOTIFICATIONS_QUEUE,
+    }),
   ],
-  providers: [ProblemProcessor],
+  providers: [ProblemProcessor, NotificationProcessor],
 })
 export class WorkerModule {}
