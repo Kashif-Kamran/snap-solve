@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { BullModule } from '@nestjs/bullmq';
 import { ConfigifyModule } from '@itgorillaz/configify';
-import { RedisConfig } from '@app/config';
+import { RedisConfig } from '@app/shared';
 import { PROBLEMS_QUEUE, NOTIFICATIONS_QUEUE } from '@app/shared';
 import { ProblemProcessor } from './problem.processor';
 import { NotificationProcessor } from './notification.processor';

@@ -1,11 +1,13 @@
-import { Global, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { BullModule } from '@nestjs/bullmq';
+import { ConfigifyModule } from '@itgorillaz/configify';
 import { RedisConfig } from '@app/shared';
-import { PROBLEMS_QUEUE, NOTIFICATIONS_QUEUE } from '@app/shared';
+import { PROBLEMS_QUEUE } from '@app/shared';
+import { ProblemProcessor } from './problem.processor';
 
-@Global()
 @Module({
   imports: [
+    ConfigifyModule.forRootAsync(),
     BullModule.forRootAsync({
       inject: [RedisConfig],
       useFactory: (redis: RedisConfig) => ({
@@ -18,8 +20,7 @@ import { PROBLEMS_QUEUE, NOTIFICATIONS_QUEUE } from '@app/shared';
       }),
     }),
     BullModule.registerQueue({ name: PROBLEMS_QUEUE }),
-    BullModule.registerQueue({ name: NOTIFICATIONS_QUEUE }),
   ],
-  exports: [BullModule],
+  providers: [ProblemProcessor],
 })
-export class QueueModule {}
+export class WorkerModule {}
