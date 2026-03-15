@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
-import { WorkerModule } from './worker.module';
+import { ProblemRunnerModule } from './problem-runner.module';
 
 async function bootstrap() {
-  await NestFactory.createApplicationContext(WorkerModule);
+  await NestFactory.createApplicationContext(ProblemRunnerModule);
 }
 bootstrap();

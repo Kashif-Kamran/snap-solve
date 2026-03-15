@@ -20,9 +20,13 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
+    "strictPropertyInitialization": false,
+    "baseUrl": ".",
     "paths": {
       "@app/shared": ["./libs/shared/src"],
-      "@app/shared/*": ["./libs/shared/src/*"]
+      "@app/shared/*": ["./libs/shared/src/*"],
+      "@app/config": ["./libs/config/src"],
+      "@app/config/*": ["./libs/config/src/*"]
     }
   }
 }
