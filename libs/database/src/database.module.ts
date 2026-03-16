@@ -1,7 +1,7 @@
 import { DynamicModule, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigifyModule } from '@itgorillaz/configify';
-import { DatabaseConfig } from './config/database.config';
+import { DatabaseConfig } from '@app/shared';
 import {
   createPostgresTypeOrmOptions,
   PostgresTypeOrmModuleOverrides,

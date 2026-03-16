@@ -1,5 +1,5 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { DatabaseConfig } from './config/database.config';
+import { DatabaseConfig } from '@app/shared';
 
 export type PostgresTypeOrmModuleOverrides = Omit<TypeOrmModuleOptions, 'type'>;
 
