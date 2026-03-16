@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ProblemController } from './problem.controller';
 import { ProblemService } from './problem.service';
 import { describe, beforeEach, it, expect, jest } from '@jest/globals';
+import { ProblemStatus } from '@app/shared';
 
 describe('ProblemController', () => {
   let controller: ProblemController;
@@ -14,7 +15,7 @@ describe('ProblemController', () => {
         {
           provide: ProblemService,
           useValue: {
-            enqueueProblem: jest.fn(),
+            createProblem: jest.fn(),
           },
         },
       ],
@@ -28,30 +29,30 @@ describe('ProblemController', () => {
     expect(controller).toBeDefined();
   });
 
-  it('should queue a problem and return a standard response', async () => {
-    problemService.enqueueProblem.mockResolvedValue({
+  it('should create a problem and return a standard response', async () => {
+    problemService.createProblem.mockResolvedValue({
       id: '1',
-      name: 'create-problem',
-      queue: 'problems',
-      payload: {
-        title: 'Sample Problem',
-        difficulty: 'easy',
-        source: 'system',
-      },
+      language: 'typescript',
+      code: 'console.log(1);',
+      status: ProblemStatus.PENDING,
+      runningLogs: null,
+      createdAt: new Date('2026-01-01T00:00:00.000Z'),
+      updatedAt: new Date('2026-01-01T00:00:00.000Z'),
     });
 
-    await expect(controller.create()).resolves.toEqual({
+    await expect(
+      controller.create({ language: 'typescript', code: 'console.log(1);' }),
+    ).resolves.toEqual({
       statusCode: 201,
-      message: 'Problem queued successfully',
+      message: 'Problem created successfully',
       data: {
         id: '1',
-        name: 'create-problem',
-        queue: 'problems',
-        payload: {
-          title: 'Sample Problem',
-          difficulty: 'easy',
-          source: 'system',
-        },
+        language: 'typescript',
+        code: 'console.log(1);',
+        status: ProblemStatus.PENDING,
+        runningLogs: null,
+        createdAt: new Date('2026-01-01T00:00:00.000Z'),
+        updatedAt: new Date('2026-01-01T00:00:00.000Z'),
       },
     });
   });

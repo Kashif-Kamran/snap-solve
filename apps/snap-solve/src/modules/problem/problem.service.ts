@@ -1,34 +1,25 @@
-import { InjectQueue } from '@nestjs/bullmq';
 import { Injectable } from '@nestjs/common';
-import { PROBLEMS_QUEUE } from '@app/shared';
-import { Queue } from 'bullmq';
-
-const PROBLEM_JOB_NAME = 'create-problem';
-
-const DEFAULT_PROBLEM_PAYLOAD = {
-  title: 'Sample Problem',
-  difficulty: 'easy',
-  source: 'system',
-};
+import { InjectRepository } from '@nestjs/typeorm';
+import { Problem } from '@app/database';
+import { ProblemStatus } from '@app/shared';
+import { Repository } from 'typeorm';
+import { CreateProblemDto } from './dto/create-problem.dto';
 
 @Injectable()
 export class ProblemService {
   constructor(
-    @InjectQueue(PROBLEMS_QUEUE)
-    private readonly problemsQueue: Queue,
+    @InjectRepository(Problem)
+    private readonly problemsRepository: Repository<Problem>,
   ) {}
 
-  async enqueueProblem() {
-    const job = await this.problemsQueue.add(
-      PROBLEM_JOB_NAME,
-      DEFAULT_PROBLEM_PAYLOAD,
-    );
+  async createProblem(createProblemDto: CreateProblemDto): Promise<Problem> {
+    const problem = this.problemsRepository.create({
+      language: createProblemDto.language,
+      code: createProblemDto.code,
+      status: ProblemStatus.PENDING,
+      runningLogs: null,
+    });
 
-    return {
-      id: job.id,
-      name: job.name,
-      queue: PROBLEMS_QUEUE,
-      payload: DEFAULT_PROBLEM_PAYLOAD,
-    };
+    return this.problemsRepository.save(problem);
   }
 }
