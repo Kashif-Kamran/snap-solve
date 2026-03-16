@@ -15,8 +15,6 @@ import { NotificationProcessor } from './notification.processor';
         connection: {
           host: redis.host,
           port: redis.port,
-          ...(redis.username ? { username: redis.username } : {}),
-          ...(redis.password ? { password: redis.password } : {}),
         },
       }),
     }),

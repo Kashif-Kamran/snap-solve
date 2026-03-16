@@ -13,8 +13,6 @@ import { ProblemProcessor } from './problem.processor';
         connection: {
           host: redis.host,
           port: redis.port,
-          ...(redis.username ? { username: redis.username } : {}),
-          ...(redis.password ? { password: redis.password } : {}),
         },
       }),
     }),
