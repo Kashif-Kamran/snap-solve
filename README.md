@@ -29,7 +29,39 @@
 
 ```bash
 $ npm install
+$ cp .env.example .env
 ```
+
+## Database library
+
+This workspace includes a reusable Postgres + TypeORM library at `libs/database`.
+
+- Import `DatabaseModule.forRoot()` in any app module that needs a DB connection.
+- Use TypeORM feature modules in app/domain modules as usual.
+
+### Run Postgres locally
+
+```bash
+docker compose up -d postgres
+```
+
+This starts PostgreSQL on `localhost:5432` with:
+
+- database: `snap_solve`
+- user: `postgres`
+- password: `postgres`
+
+Environment variables used by the shared database library:
+
+- `DATABASE_URL` (optional, overrides host/port/user/password/name when set)
+- `DATABASE_HOST`
+- `DATABASE_PORT`
+- `DATABASE_NAME`
+- `DATABASE_USER`
+- `DATABASE_PASSWORD`
+- `DATABASE_SSL`
+- `DATABASE_SYNCHRONIZE`
+- `DATABASE_LOGGING`
 
 ## Compile and run the project
 

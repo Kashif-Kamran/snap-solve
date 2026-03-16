@@ -22,17 +22,16 @@ export class RedisConfig {
   @Value('REDIS_PORT', { parse: parseInt })
   port: number;
 
-  // @IsOptional()
-  // @IsString()
-  // @Value('REDIS_USERNAME', { default: '' })
-  // username: string;
+  @IsOptional()
+  @IsString()
+  @Value('REDIS_USERNAME', { default: '' })
+  username: string;
 
-  // // Required when REDIS_USERNAME is non-empty
-  // @ValidateIf((config: RedisConfig) => Boolean(config.username))
-  // @IsString()
-  // @IsNotEmpty({
-  //   message: 'REDIS_PASSWORD must be provided when REDIS_USERNAME is set',
-  // })
-  // @Value('REDIS_PASSWORD', { default: '' })
-  // password: string;
+  @ValidateIf((config: RedisConfig) => Boolean(config.username))
+  @IsString()
+  @IsNotEmpty({
+    message: 'REDIS_PASSWORD must be provided when REDIS_USERNAME is set',
+  })
+  @Value('REDIS_PASSWORD', { default: '' })
+  password: string;
 }
