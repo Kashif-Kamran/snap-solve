@@ -2,6 +2,25 @@
  * Common database types and interfaces shared across microservices
  */
 
+export type SortDirection = 'ASC' | 'DESC';
+
+export interface DatabaseRuntimeConfig {
+  url: string;
+  host: string;
+  port: number;
+  name: string;
+  user: string;
+  password: string;
+  ssl: boolean;
+  synchronize: boolean;
+  logging: boolean;
+  migrationsRun: boolean;
+  maxConnections: number;
+  connectionTimeoutMs: number;
+  idleTimeoutMs: number;
+  appName: string;
+}
+
 /**
  * Base entity interface for all database entities
  */
@@ -42,10 +61,10 @@ export interface PaginatedResponse<T> {
  * Generic query filter options
  */
 export interface QueryOptions {
-  where?: Record<string, any>;
+  where?: Record<string, unknown>;
   skip?: number;
   take?: number;
-  order?: Record<string, 'ASC' | 'DESC'>;
+  order?: Record<string, SortDirection>;
   relations?: string[];
 }
 

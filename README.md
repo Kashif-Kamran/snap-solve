@@ -62,6 +62,35 @@ Environment variables used by the shared database library:
 - `DATABASE_SSL`
 - `DATABASE_SYNCHRONIZE`
 - `DATABASE_LOGGING`
+- `DATABASE_MIGRATIONS_RUN`
+- `DATABASE_MAX_CONNECTIONS`
+- `DATABASE_CONNECTION_TIMEOUT_MS`
+- `DATABASE_IDLE_TIMEOUT_MS`
+- `DATABASE_APP_NAME`
+
+### TypeORM migrations
+
+Migrations are configured with the shared data source at `libs/database/src/data-source.ts`.
+
+```bash
+# generate a migration from entity changes
+npm run db:migration:generate --name=init_problem_table
+
+# run pending migrations
+npm run db:migration:run
+
+# revert the last migration
+npm run db:migration:revert
+
+# inspect migration status
+npm run db:migration:show
+```
+
+Recommended policy:
+
+- Keep `DATABASE_SYNCHRONIZE=false` for any persistent environment.
+- Use migrations for schema changes.
+- Optionally use `DATABASE_MIGRATIONS_RUN=true` for automatic migration execution at startup when needed.
 
 ## Compile and run the project
 

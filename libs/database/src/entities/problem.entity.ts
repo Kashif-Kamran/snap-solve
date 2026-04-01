@@ -1,18 +1,14 @@
+import { Column, Entity } from 'typeorm';
 import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
-import { ProblemStatus } from '@app/shared';
+  DATABASE_CONSTRAINTS,
+  DATABASE_TABLES,
+  ProblemStatus,
+} from '@app/shared';
+import { AppBaseEntity } from './base.entity';
 
-@Entity({ name: 'problem' })
-export class Problem {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
-  @Column({ type: 'varchar', length: 100 })
+@Entity({ name: DATABASE_TABLES.PROBLEM })
+export class Problem extends AppBaseEntity {
+  @Column({ type: 'varchar', length: DATABASE_CONSTRAINTS.LANGUAGE_MAX_LENGTH })
   language: string;
 
   @Column({ type: 'text' })
@@ -26,11 +22,5 @@ export class Problem {
   status: ProblemStatus;
 
   @Column({ type: 'jsonb', nullable: true })
-  runningLogs: Record<string, any> | null;
-
-  @CreateDateColumn({ type: 'timestamptz' })
-  createdAt: Date;
-
-  @UpdateDateColumn({ type: 'timestamptz' })
-  updatedAt: Date;
+  runningLogs: Record<string, unknown> | null;
 }
